@@ -16,5 +16,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3000
 
-# Start the React application
-CMD ["npm", "start"]
+# Start the React application with increased memory limit
+CMD ["sh", "-c", "NODE_OPTIONS='--max-old-space-size=4096' npm start --host 0.0.0.0"]
