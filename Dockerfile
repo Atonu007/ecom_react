@@ -1,5 +1,5 @@
-# Use the official Node.js image from the Docker Hub with version 21
-FROM node:21
+# Use the official Node.js image as the build environment
+FROM node:21 AS build
 
 # Set the working directory in the container
 WORKDIR /app
@@ -13,8 +13,14 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the app runs on
+# Build the React application
+RUN npm run build
+
+# Install `serve` to serve the static files
+RUN npm install -g serve
+
+# Expose the port that the app will run on
 EXPOSE 3000
 
-# Start the React application with increased memory limit
-CMD ["sh", "-c", "NODE_OPTIONS='--max-old-space-size=4096' npm start --host 0.0.0.0"]
+# Use `serve` to serve the build folder
+CMD ["serve", "-s", "build", "-l", "3000"]
