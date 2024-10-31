@@ -30,7 +30,7 @@ const Footer = () => {
       const subscriptionData = { email: emailInfo };
 
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/core/subscribe/", {
+        const response = await fetch("https://ecom-django.onrender.com/api/core/subscribe/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const Footer = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/inventory/categories/list/");
+        const response = await fetch("https://ecom-django.onrender.com/api/inventory/categories/list/");
         const data = await response.json();
         setCategories(data);
       } catch (error) {
@@ -82,17 +82,17 @@ const Footer = () => {
               ab ullam, numquam nesciunt in.
             </p>
             <ul className="flex items-center gap-2">
-              <a href="https://www.instagram.com/your_instagram_handle" target="_blank" rel="noreferrer">
+              <a href="#" target="_blank" rel="noreferrer">
                 <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaInstagram />
                 </li>
               </a>
-              <a href="https://www.facebook.com/Noorlalu143/" target="_blank" rel="noreferrer">
+              <a href="#" target="_blank" rel="noreferrer">
                 <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaFacebook />
                 </li>
               </a>
-              <a href="https://www.youtube.com/@your_channel" target="_blank" rel="noreferrer">
+              <a href="#" target="_blank" rel="noreferrer">
                 <li className="w-7 h-7 bg-primeColor text-gray-100 hover:text-white cursor-pointer text-lg rounded-full flex justify-center items-center hover:bg-black duration-300">
                   <FaYoutube />
                 </li>

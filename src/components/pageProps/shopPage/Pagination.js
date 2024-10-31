@@ -8,7 +8,7 @@ function Items({ currentItems }) {
     <>
       {currentItems &&
         currentItems.map((item) => {
-          const imgUrl = `http://127.0.0.1:8000${item.img}`; 
+          const imgUrl = `https://ecom-django.onrender.com${item.img}`; 
           return (
             <div key={item.id} className="w-full">
               <Product
@@ -50,8 +50,8 @@ const Pagination = ({
       try {
        
         const url = category
-          ? `http://127.0.0.1:8000/api/inventory/products/category/${category}/`
-          : "http://127.0.0.1:8000/api/inventory/products/list/";
+          ? `https://ecom-django.onrender.com/api/inventory/products/category/${category}/`
+          : "https://ecom-django.onrender.com/api/inventory/products/list/";
 
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch products");

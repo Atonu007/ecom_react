@@ -29,7 +29,7 @@ const HeaderBottom = () => {
     if (searchQuery) {
       const fetchProducts = async () => {
         try {
-          const response = await fetch(`http://127.0.0.1:8000/api/inventory/search_products/?query=${searchQuery}`);
+          const response = await fetch(`https://ecom-django.onrender.com/api/inventory/search_products/?query=${searchQuery}`);
           if (response.ok) {
             const data = await response.json();
             setFilteredProducts(data);
@@ -161,7 +161,7 @@ const HeaderBottom = () => {
                     }}
                     className="max-w-[600px] h-28 bg-gray-100 mb-3 flex items-center gap-3"
                   >
-                    <img className="w-24" src={`http://127.0.0.1:8000${item.img}`} alt="productImg" />
+                    <img className="w-24" src={`https://ecom-django.onrender.com${item.img}`} alt="productImg" />
                     <div className="flex flex-col gap-1">
                       <p className="font-semibold text-lg">{item.productName}</p>
                       <p className="text-xs">{item.des}</p>

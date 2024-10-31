@@ -49,7 +49,7 @@ const NewArrivals = ({ products }) => {
           <div key={product.id} className="px-2">
             <Product
               _id={product.id}
-              img={`http://127.0.0.1:8000${product.img}`} 
+              img={`https://ecom-django.onrender.com${product.img}`} 
               productName={product.productName}
               price={product.price}
               color={product.color}

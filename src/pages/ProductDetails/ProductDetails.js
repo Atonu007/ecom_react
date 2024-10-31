@@ -20,7 +20,7 @@ const ProductDetails = () => {
     return <div>Loading...</div>; 
   }
 
-  const BASE_URL = "http://127.0.0.1:8000"; 
+  const BASE_URL = "https://ecom-django.onrender.com"; 
 
 
   const imageSrc =
