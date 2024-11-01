@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoLight } from "../../assets/images";
 
 const SignUp = () => {
@@ -47,7 +47,6 @@ const SignUp = () => {
     setSuccessMsg(""); 
     setErrorMsg(""); 
 
-
     if (!checked) {
       return setErrorMsg("You must agree to the Terms of Service and Privacy Policy.");
     }
@@ -86,11 +85,15 @@ const SignUp = () => {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const data = await response.json();
-        console.log("API Response:", data);
-        sessionStorage.setItem("token", data.access); 
+
+        // Store tokens and user info in session storage
+        sessionStorage.setItem("accessToken", data.access);
+        sessionStorage.setItem("refreshToken", data.refresh);
+        sessionStorage.setItem("user", JSON.stringify({ name: clientName, email })); 
 
         setSuccessMsg(`Welcome, ${clientName}! Check your email at ${email} for confirmation.`);
 
+        // Clear form fields
         setClientName("");
         setEmail("");
         setPhone("");
@@ -100,6 +103,7 @@ const SignUp = () => {
         setCountry("");
         setChecked(false);
 
+        // Navigate to home page
         navigate("/"); 
       } catch (error) {
         setErrorMsg("Failed to register. Please try again.");
@@ -107,7 +111,7 @@ const SignUp = () => {
       }
     }
   };
-  
+
   return (
     <div className="w-full h-screen flex items-center justify-start">
       <div className="w-1/2 hidden lgl:inline-flex h-full text-white">
@@ -197,18 +201,16 @@ const SignUp = () => {
                   <input
                     onChange={handleName}
                     value={clientName}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="text"
-                    placeholder="eg. John Doe"
+                    placeholder="Enter your name"
                   />
                   {errClientName && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errClientName}
-                    </p>
+                    <p className="text-red-500 text-xs">{errClientName}</p>
                   )}
                 </div>
-                {/* Email */}
+
+                {/* email */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     Email
@@ -216,37 +218,33 @@ const SignUp = () => {
                   <input
                     onChange={handleEmail}
                     value={email}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="email"
-                    placeholder="eg. johndoe@gmail.com"
+                    placeholder="Enter your email"
                   />
                   {errEmail && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errEmail}
-                    </p>
+                    <p className="text-red-500 text-xs">{errEmail}</p>
                   )}
                 </div>
-                {/* Phone */}
+
+                {/* phone */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
-                    Phone
+                    Phone Number
                   </p>
                   <input
                     onChange={handlePhone}
                     value={phone}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
-                    type="text"
-                    placeholder="eg. +234 81 234 567 89"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
+                    type="tel"
+                    placeholder="Enter your phone number"
                   />
                   {errPhone && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errPhone}
-                    </p>
+                    <p className="text-red-500 text-xs">{errPhone}</p>
                   )}
                 </div>
-                {/* Password */}
+
+                {/* password */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     Password
@@ -254,18 +252,16 @@ const SignUp = () => {
                   <input
                     onChange={handlePassword}
                     value={password}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="password"
-                    placeholder="eg. *****"
+                    placeholder="Create your password"
                   />
                   {errPassword && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errPassword}
-                    </p>
+                    <p className="text-red-500 text-xs">{errPassword}</p>
                   )}
                 </div>
-                {/* Address */}
+
+                {/* address */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     Address
@@ -273,18 +269,16 @@ const SignUp = () => {
                   <input
                     onChange={handleAddress}
                     value={address}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="text"
-                    placeholder="eg. 123 Main St"
+                    placeholder="Enter your address"
                   />
                   {errAddress && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errAddress}
-                    </p>
+                    <p className="text-red-500 text-xs">{errAddress}</p>
                   )}
                 </div>
-                {/* City */}
+
+                {/* city */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     City
@@ -292,18 +286,16 @@ const SignUp = () => {
                   <input
                     onChange={handleCity}
                     value={city}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="text"
-                    placeholder="eg. New York"
+                    placeholder="Enter your city name"
                   />
                   {errCity && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errCity}
-                    </p>
+                    <p className="text-red-500 text-xs">{errCity}</p>
                   )}
                 </div>
-                {/* Country */}
+
+                {/* country */}
                 <div className="flex flex-col gap-.5">
                   <p className="font-titleFont text-base font-semibold text-gray-600">
                     Country
@@ -311,44 +303,51 @@ const SignUp = () => {
                   <input
                     onChange={handleCountry}
                     value={country}
-                    className="w-full h-8 placeholder:text-sm placeholder:tracking-wide px-4 text-base font-medium placeholder:font-normal rounded-md border-[1px] border-gray-400 outline-none"
+                    className="w-full h-8 placeholder:text-sm px-2 rounded-md bg-gray-300 text-gray-700"
                     type="text"
-                    placeholder="eg. USA"
+                    placeholder="Enter your country"
                   />
                   {errCountry && (
-                    <p className="text-sm text-red-500 font-titleFont font-semibold px-4">
-                      <span className="font-bold italic mr-1">!</span>
-                      {errCountry}
-                    </p>
+                    <p className="text-red-500 text-xs">{errCountry}</p>
                   )}
                 </div>
-              </div>
-              <div className="flex items-center gap-2 mt-5">
-                <input
-                  type="checkbox"
-                  className="w-5 h-5 accent-primeColor"
-                  onChange={() => setChecked(!checked)}
-                />
-                <p className="text-sm text-gray-600">
-                  I agree to the
-                  <span className="text-primeColor cursor-pointer">
-                    {" "}
-                    Terms of Service
-                  </span>{" "}
-                  and
-                  <span className="text-primeColor cursor-pointer">
-                    {" "}
-                    Privacy Policy
-                  </span>
+
+                {/* Terms and conditions */}
+                <div className="flex items-center">
+                  <input
+                    onChange={() => setChecked(!checked)}
+                    checked={checked}
+                    type="checkbox"
+                    className="w-4 h-4 accent-primeColor"
+                  />
+                  <p className="text-sm ml-2">
+                    I agree to the{" "}
+                    <span className="text-primeColor font-semibold cursor-pointer">
+                      Terms of Service
+                    </span>{" "}
+                    and{" "}
+                    <span className="text-primeColor font-semibold cursor-pointer">
+                      Privacy Policy
+                    </span>
+                  </p>
+                </div>
+                {errorMsg && (
+                  <p className="text-red-500 text-xs">{errorMsg}</p>
+                )}
+                <button
+                  onClick={handleSignUp}
+                  className="w-full h-10 rounded-md bg-primeColor text-gray-200 text-base font-titleFont font-semibold 
+                  tracking-wide hover:bg-black hover:text-white duration-300"
+                >
+                  Create account
+                </button>
+                <p className="text-sm text-gray-600 mt-4">
+                  Already have an account?{" "}
+                  <Link to="/signin" className="text-primeColor font-semibold">
+                    Sign in
+                  </Link>
                 </p>
               </div>
-              <button
-                onClick={handleSignUp}
-                className="w-full h-10 bg-primeColor rounded-md text-gray-200 text-base font-titleFont font-semibold 
-            tracking-wide hover:bg-black hover:text-white duration-300 mt-8"
-              >
-                Create Account
-              </button>
             </div>
           </form>
         )}
