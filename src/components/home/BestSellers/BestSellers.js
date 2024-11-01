@@ -11,7 +11,7 @@ const BestSellers = ({ products }) => {
           <Product
             key={product._id} 
             _id={product._id}
-            img={`http://127.0.0.1:8000${product.img}`} 
+            img={`https://ecom-django.onrender.com${product.img}`} 
             productName={product.productName}
             price={product.price}
             color={product.color}

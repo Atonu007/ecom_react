@@ -1,5 +1,5 @@
-# Use the official Node.js image as the build environment
-FROM node:21 AS build
+# Use a lightweight Node.js image as the build environment
+FROM node:21-alpine AS build
 
 # Set the working directory in the container
 WORKDIR /app

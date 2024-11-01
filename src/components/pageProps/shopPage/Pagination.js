@@ -50,7 +50,7 @@ const Pagination = ({
       try {
        
         const url = category
-          ? `https://ecom-django.onrender.com/api/inventory/products/category/${category}/`
+          ? `https://ecom-django.onrender.com/api/inventory/categories/list/${category}/`
           : "https://ecom-django.onrender.com/api/inventory/products/list/";
 
         const response = await fetch(url);
