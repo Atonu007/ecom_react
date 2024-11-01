@@ -57,7 +57,7 @@ const HeaderBottom = () => {
 
   const handleLogout = async () => {
     const refreshToken = sessionStorage.getItem("refreshToken");
-    console.log("logout rt: ", refreshToken);
+  
   
     if (!refreshToken) {
       console.error("No refresh token found");
@@ -67,7 +67,7 @@ const HeaderBottom = () => {
     }
   
     const accessToken = sessionStorage.getItem("accessToken");
-    console.log("logout at: ", accessToken);
+    
   
     if (!accessToken) {
       console.error("No access token found");
